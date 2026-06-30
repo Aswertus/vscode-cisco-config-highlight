@@ -1,0 +1,31 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Fast-forward main from upstream
+    runs-on: ubuntu-latest
+    if: github.repository != 'Y-Ysss/vscode-cisco-config-highlight'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/Y-Ysss/vscode-cisco-config-highlight.git
+
+      - name: Fetch upstream
+        run: git fetch upstream main
+
+      - name: Fast-forward merge upstream/main
+        run: git merge --ff-only upstream/main
+
+      - name: Push to origin
+        run: git push origin main

@@ -127,7 +127,8 @@
     "publish:vsce": "vsce publish --packagePath ./*.vsix",
     "publish:vsce:pre-release": "vsce publish --packagePath ./*.vsix --pre-release",
     "publish:ovsx": "ovsx publish ./*.vsix",
-    "publish:ovsx:pre-release": "ovsx publish ./*.vsix --pre-release"
+    "publish:ovsx:pre-release": "ovsx publish ./*.vsix --pre-release",
+    "sync-upstream": "git fetch upstream && git checkout main && git merge --ff-only upstream/main && git push origin main"
   },
   "dependencies": {
     "semver": "^7.5.2"
